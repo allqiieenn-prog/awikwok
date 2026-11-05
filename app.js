@@ -184,7 +184,7 @@ const A={
 };
 async function exportXlsx(){
  if(!window.ExcelJS)return toast('Library Excel belum termuat. Periksa koneksi internet.');
- const C=calc(M),T=C.T,F=fifoMap(),wb=new ExcelJS.Workbook(),R=Math.round,RP='"Rp" #,##0',td=iso(new Date());wb.creator='Keuangan PM';
+ const C=calc(M),T=C.T,F=fifoMap(),wb=new ExcelJS.Workbook(),R=Math.round,RP='"Rp" #,##0',td=iso(new Date());wb.creator='Keuangan Kita';
  const fl=a=>({type:'pattern',pattern:'solid',fgColor:{argb:a}}),dt=d=>d.split('-').reverse().join('/');
  const sheet=(name,title,cols,rows,tot,note)=>{
   const ws=wb.addWorksheet(name,{views:[{state:'frozen',ySplit:4,showGridLines:false}]});
@@ -196,7 +196,7 @@ async function exportXlsx(){
   rows.forEach((r,ri)=>{const row=ws.getRow(5+ri);r.forEach((v,i)=>{const e=row.getCell(i+1);e.value=v;e.border=B;if(cols[i].f=='rp')e.numFmt=RP;else if(cols[i].f=='n')e.numFmt='#,##0.##';e.alignment={horizontal:cols[i].c?'center':(i&&cols[i].f)?'right':'left'};if(ri%2)e.fill=fl('FFF6F6FC')})});
   if(tot){const row=ws.getRow(5+rows.length);tot.forEach((v,i)=>{const e=row.getCell(i+1);e.value=v;e.font={bold:true};if(cols[i].f=='rp')e.numFmt=RP;e.fill=fl('FFE9E8FD');e.border={top:{style:'medium',color:{argb:'FF17142E'}}};e.alignment={horizontal:cols[i].c?'center':(i&&cols[i].f)?'right':'left'}})}
   return ws};
- sheet('Ringkasan','Laporan Keuangan PM · '+bln(M),[{h:'Keterangan',w:36},{h:'Nilai',w:24,f:'rp'}],[['Hari terisi',T.d+' hari'],['Total PM-hari',T.pm+' PM-hari'],['Dana masuk',T.in],['Pengeluaran harian',T.har],['Belanja mingguan & gas terpakai',R(T.stk)],['Barang gudang keluar',R(T.gdg)],['Bulanan (dibagi hari aktif)',R(T.bul)],['Gaji pegawai',T.gaji],['Total pengeluaran',R(T.out)]],['SISA DANA',R(T.net)],'Dibuat '+dt(td));
+ sheet('Ringkasan','Laporan Keuangan Kita · '+bln(M),[{h:'Keterangan',w:36},{h:'Nilai',w:24,f:'rp'}],[['Hari terisi',T.d+' hari'],['Total PM-hari',T.pm+' PM-hari'],['Dana masuk',T.in],['Pengeluaran harian',T.har],['Belanja mingguan & gas terpakai',R(T.stk)],['Barang gudang keluar',R(T.gdg)],['Bulanan (dibagi hari aktif)',R(T.bul)],['Gaji pegawai',T.gaji],['Total pengeluaran',R(T.out)]],['SISA DANA',R(T.net)],'Dibuat '+dt(td));
  sheet('Per Hari','Rincian Per Hari',[{h:'Tanggal',w:13},{h:'PM',w:9,f:'n'},{h:'Hadir',w:9,f:'n'},{h:'Dana masuk',w:16,f:'rp'},{h:'Harian',w:15,f:'rp'},{h:'Belanja/Gas',w:15,f:'rp'},{h:'Gudang',w:15,f:'rp'},{h:'Bulanan',w:15,f:'rp'},{h:'Gaji',w:16,f:'rp'},{h:'Total keluar',w:16,f:'rp'},{h:'Sisa',w:16,f:'rp'},{h:'Akumulasi',w:16,f:'rp'}],C.rows.map(r=>[dt(r.d),r.pm,here(r.d).length,r.in,r.har,R(r.stk),R(r.gdg),R(r.bul),r.gaji,R(r.out),R(r.net),R(r.cum)]),['Total',T.pm,'',T.in,T.har,R(T.stk),R(T.gdg),R(T.bul),T.gaji,R(T.out),R(T.net),''],'Hanya hari yang sudah terisi');
  sheet('Kehadiran','Kehadiran Pegawai',[{h:'Tanggal',w:13},...S.emps.map(e=>({h:e.name,w:14,c:1}))],C.rows.map(r=>[dt(r.d),...S.emps.map(e=>S.att[r.d+'|'+e.id]?'✓':'')]),['Total hadir',...S.emps.map(e=>(C.em[e.id]||{h:0}).h)]);
  sheet('Gaji Pegawai','Gaji Pegawai',[{h:'Pegawai',w:26},{h:'Divisi',w:18,c:1},{h:'Hadir',w:10,f:'n'},{h:'Gaji/hari sekarang',w:20,f:'rp'},{h:'Total gaji',w:20,f:'rp'}],S.emps.filter(e=>C.em[e.id]).map(e=>[e.name,(S.divs.find(v=>v.id==e.division_id)||{}).name||'-',C.em[e.id].h,wageOn(e,td),C.em[e.id].t]),['Total','','','',T.gaji],'Total memakai gaji yang berlaku pada tiap tanggal');
