@@ -2,7 +2,7 @@
 const $=s=>document.querySelector(s),val=i=>$('#'+i).value;
 const MN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const DN=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
-const CATS=['Bahan makanan','Gas/LPG','Listrik & air','Transportasi','Sewa','Perawatan alat','Kebersihan','Lainnya'];
+const CATS=['Bahan makanan','APD','Gas/LPG','Listrik & air','Transportasi','Sewa','Perawatan alat','Kebersihan','Lainnya'];
 const f3=n=>String(Math.round(+n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,'.'),nv=i=>+String($('#'+i).value).replace(/\./g,'')||0;
 const fm=n=>'Rp'+Math.round(+n||0).toLocaleString('id-ID'),q=n=>(+(+n).toFixed(2)).toLocaleString('id-ID');
 const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
