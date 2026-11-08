@@ -62,3 +62,7 @@ input.g,select.g{padding:5px 8px;border-radius:8px}select.g{width:auto}
 .tabs button:hover{color:var(--ink)}.tabs button.on{background:var(--ac);color:#fff}
 .cc>p:has(>button.dk){margin:4px 0 14px}.cc>h3+p.mu{margin:2px 0 12px!important}
 .tabs~.row2{display:block}
+
+.cg button.mis:after{content:"";position:absolute;bottom:3px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#f59e0b}
+.lg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:11px;color:var(--mu)}.lg i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.qt{min-width:760px}.qt td{padding:5px 6px;text-align:left}.qt input,.qt select{padding:7px 9px;border-radius:9px}.qt input[type=date]{min-width:140px}
